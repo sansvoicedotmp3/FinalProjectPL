@@ -22,9 +22,6 @@ movepool.append(pokemon.Move("Close Combat", "Fighting", 120, 100))
 def get_hp(pkmn:pokemon.GenericPokemon, level = 100) -> int:
     return int(((pkmn.hp * 2 * level) / 100) + level + 10)
 
-def get_hp(pkmn:pokemon.GenThreePokemon, level = 100) -> int:
-    return int((2 * pkmn.hp * level / 100) + level + 10)
-
 def get_other_stat(stat:int, level = 100) -> int:
     return int(((stat * 2 * level) / 100) + 5)
 
