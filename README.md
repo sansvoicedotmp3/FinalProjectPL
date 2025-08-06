@@ -6,6 +6,6 @@ This project implements damage calculations from generations one and three using
 
 This implementation focuses on: 
 - Implementing the different generations of pokemon using basic inheritance for shared attributes
-- Where applicable, leveraging writing functions that either work with the base class or that have different implementations based on the arguments used (ad-hoc polymorphism) 
+- Where applicable, leveraging writing functions that either work with the base class or that have different implementations based on the arguments used (Python lacks ad-hoc polymorphism, sadly)
 - Using custom data types (Move, Type) to make designing everything smoother and easier to follow
 - Being (relatively) easy to expand with new generations or functionality; it should be pretty easy to allow for more knobs and dials on the user's end for things like level and EVs/IVs
