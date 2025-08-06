@@ -1,6 +1,8 @@
 import pokemon
 import random
 
+# POKEMON AND MOVE SELECTION - HARDCODED
+
 genOneBox = []
 genThreeBox = []
 
@@ -19,20 +21,24 @@ movepool.append(pokemon.Move("Body Slam", "Normal", 85, 100))
 movepool.append(pokemon.Move("Psychic", "Psychic", 90, 100))
 movepool.append(pokemon.Move("Close Combat", "Fighting", 120, 100))
 
+# UTILITY FUNCTIONS
+
 def get_hp(pkmn:pokemon.GenericPokemon, level = 100) -> int:
     return int(((pkmn.hp * 2 * level) / 100) + level + 10)
 
 def get_other_stat(stat:int, level = 100) -> int:
     return int(((stat * 2 * level) / 100) + 5)
 
-def get_damage(move:pokemon.Move, attacker:pokemon.GenOnePokemon, defender:pokemon.GenOnePokemon, attacker_level = 100, defender_level = 100, crit = False) -> int:
+# GENERATION 1
+
+def get_damage_g1(move:pokemon.Move, attacker:pokemon.GenOnePokemon, defender:pokemon.GenOnePokemon, attacker_level = 100, defender_level = 100, crit = False) -> int:
     crit_mult = 1
     if crit:
         crit_mult = 2
     stab = 1
     if move.type == attacker.type.type_one or move.type == attacker.type.type_two:
         stab = 1.5
-    if move.split in ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost"]:
+    if move.type in ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost"]:
         base_damage = (((((2*attacker_level*crit_mult)/5) + 2) * move.power * (get_other_stat(attacker.attack) / get_other_stat(defender.defense))) / 50) + 2
     else:
         base_damage = (((((2*attacker_level*crit_mult)/5) + 2) * move.power * (get_other_stat(attacker.special) / get_other_stat(defender.special))) / 50) + 2
@@ -42,28 +48,31 @@ def get_damage(move:pokemon.Move, attacker:pokemon.GenOnePokemon, defender:pokem
         return int(base_damage*crit_mult*stab*get_gen_one_type_effectiveness(move.type, defender.type.type_one)*get_gen_one_type_effectiveness(move.type, defender.type.type_two_))
 
 def get_gen_one_type_effectiveness(attacker:str, defender:str) -> float:
-    type_chart = {"Fire": [["Ice", "Grass", "Bug"],["Fire", "Water", "Rock", "Dragon"]],
-                "Water": [["Fire", "Ground", "Rock"],["Water", "Grass", "Dragon"]],
-                "Electric": [["Water", "Flying"],["Electric", "Grass", "Ground", "Dragon"]],
-                "Grass": [["Water", "Ground", "Rock"],["Fire", "Grass", "Poison", "Flying", "Bug", "Dragon"]],
-                "Ice": [["Grass", "Ground", "Flying", "Dragon"],["Water", "Ice"]],
-                "Fighting": [["Normal", "Ice", "Rock"],["Poison", "Flying", "Psychic", "Bug", "Ghost"]],
-                "Poison": [["Grass", "Bug"],["Poison", "Ground", "Rock", "Ghost"]],
-                "Ground": [["Fire", "Electric", "Poison", "Rock"],["Grass", "Bug", "Flying"]],
-                "Flying": [["Grass", "Fighting", "Bug"],["Electric", "Rock"]],
-                "Psychic": [["Fighting", "Poison"],["Psychic"]],
-                "Bug": [["Grass", "Psychic"],["Fire", "Fighting", "Poison", "Flying", "Ghost"]],
-                "Rock": [["Fire", "Ice", "Flying", "Bug"],["Fighting", "Ground"]],
-                "Ghost": [["Ghost"],["Normal", "Psychic"]],
-                "Dragon": [["Dragon"],[]],
-                "Normal": [[],["Rock", "Ghost"]]}
+    type_chart = {
+        "Fire": [["Ice", "Grass", "Bug"],["Fire", "Water", "Rock", "Dragon"]],
+        "Water": [["Fire", "Ground", "Rock"],["Water", "Grass", "Dragon"]],
+        "Electric": [["Water", "Flying"],["Electric", "Grass", "Ground", "Dragon"]],
+        "Grass": [["Water", "Ground", "Rock"],["Fire", "Grass", "Poison", "Flying", "Bug", "Dragon"]],
+        "Ice": [["Grass", "Ground", "Flying", "Dragon"],["Water", "Ice"]],
+        "Fighting": [["Normal", "Ice", "Rock"],["Poison", "Flying", "Psychic", "Bug", "Ghost"]],
+        "Poison": [["Grass", "Bug"],["Poison", "Ground", "Rock", "Ghost"]],
+        "Ground": [["Fire", "Electric", "Poison", "Rock"],["Grass", "Bug", "Flying"]],
+        "Flying": [["Grass", "Fighting", "Bug"],["Electric", "Rock"]],
+        "Psychic": [["Fighting", "Poison"],["Psychic"]],
+        "Bug": [["Grass", "Psychic"],["Fire", "Fighting", "Poison", "Flying", "Ghost"]],
+        "Rock": [["Fire", "Ice", "Flying", "Bug"],["Fighting", "Ground"]],
+        "Ghost": [["Ghost"],["Normal", "Psychic"]],
+        "Dragon": [["Dragon"],[]],
+        "Normal": [[],["Rock", "Ghost"]]}
     if defender in type_chart[attacker][0]:
         return 2
     elif defender in type_chart[attacker][1]:
         return 0.5
     return 1
 
-def get_damage(move:pokemon.Move, attacker:pokemon.GenThreePokemon, defender:pokemon.GenThreePokemon, attacker_level = 100, defender_level = 100, crit = False) -> int:
+# GENERATION 3
+
+def get_damage_g3(move:pokemon.Move, attacker:pokemon.GenThreePokemon, defender:pokemon.GenThreePokemon, attacker_level = 100, defender_level = 100, crit = False) -> int:
     crit_mult = 1
     if crit:
         crit_mult = 2
@@ -104,6 +113,8 @@ def get_gen_three_type_effectiveness(attacker:str, defender:str) -> float:
         return 0.5
     return 1
 
+# MAIN FUNCTION HERE
+
 def main():
     print("Hello! Welcome to the Damage Simulator. Which generation would you like to simulate? 1 or 3?")
     gen = 1
@@ -139,7 +150,7 @@ def main():
         atk = genOneBox[attacker]
         dfd = genOneBox[defender]
 
-        base_damage = get_damage(move_used, atk, dfd)
+        base_damage = get_damage_g1(move_used, atk, dfd)
         defender_hp = get_hp(dfd)
 
     else:
@@ -171,7 +182,7 @@ def main():
         atk = genThreeBox[attacker]
         dfd = genThreeBox[defender]
 
-        base_damage = get_damage(move_used, atk, dfd)
+        base_damage = get_damage_g3(move_used, atk, dfd)
         defender_hp = get_hp(dfd)
 
     min_damage = int(base_damage * 0.85)
