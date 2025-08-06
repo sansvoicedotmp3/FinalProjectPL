@@ -1,4 +1,4 @@
-#Welcome to my Pokemon Damage Simulator!
+# Welcome to my Pokemon Damage Simulator!
 
 This project is for my Programming Languages class. I wanted to implement some basic damage calculations from Pokemon using Python so that I could show what I've learned in a project that would actually interest me. 
 
