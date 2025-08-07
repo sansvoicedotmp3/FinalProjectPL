@@ -145,7 +145,7 @@ def main():
         while move_choice < 0 or move_choice >= len(movepool):
             move_choice = int(input("Enter the move index: "))
 
-        move_used = movepool[move_choice]
+        move_used:pokemon.Move = movepool[move_choice]
         atk:pokemon.GenOnePokemon = genOneBox[attacker]
         dfd:pokemon.GenOnePokemon = genOneBox[defender]
 
@@ -177,7 +177,7 @@ def main():
         while move_choice < 0 or move_choice >= len(movepool):
             move_choice = int(input("Enter the move index: "))
 
-        move_used = movepool[move_choice]
+        move_used:pokemon.Move = movepool[move_choice]
         atk:pokemon.GenThreePokemon = genThreeBox[attacker]
         dfd:pokemon.GenThreePokemon = genThreeBox[defender]
 
