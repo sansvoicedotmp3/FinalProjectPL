@@ -26,11 +26,12 @@ class GenOnePokemon(GenericPokemon):
     def __init__(self, name: str, type:Type, hp:int, attack:int, defense:int, special:int, speed:int):
         super().__init__(name, type, hp, attack, defense, speed)
         self.special = special
-
+        
         #Placeholder for full system
-        self.dv = 0
-        self.statexp = 0
 
+        self.dv = 0 #{"hp": 0, "attack": 0, "defense": 0, "special": 0, "speed": 0}
+        self.statexp = 0 #{"hp": 0, "attack": 0, "defense": 0, "special": 0, "speed": 0}
+    
     def get_real_hp(self, level = 100) -> int:
         return int(math.floor((((((self.hp + self.dv ) * 2) + (math.sqrt(self.statexp) / 4))* level) / 100)) + level + 10)
     
@@ -53,8 +54,8 @@ class GenThreePokemon(GenericPokemon):
         self.special_defense = special_defense
 
         #Placeholder for full system
-        self.iv = 0
-        self.ev = 0
+        self.iv = 0 #{"hp": 0, "attack": 0, "defense": 0, "special_attack": 0, "special_defense": 0, "speed": 0}
+        self.ev = 0 #{"hp": 0, "attack": 0, "defense": 0, "special_attack": 0, "special_defense": 0, "speed": 0}
 
     def get_real_hp(self, level = 100) -> int:
         return int(math.floor((((((self.hp) * 2) + self.iv + math.floor((self.ev / 4)))* level) / 100)) + level + 10)
