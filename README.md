@@ -12,4 +12,6 @@ This implementation focuses on:
 
 The current form is more of a proof-of-concept, although the structure of the classes would allow for expansion of the move/pokemon roster (maybe using JSON, which shouldn't be hard)
 
-This is more or less just a basic object-oriented design example, including inheritance and class functions.
+This is more or less just a basic object-oriented design example, including inheritance and class functions. It also has some protected class fields, but those aren't doing much. It's moreso just to show I know what they are.
+
+This could have been done in Java or C++, but I'm more familiar with Python so I chose that. 
