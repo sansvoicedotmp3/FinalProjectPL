@@ -16,12 +16,11 @@ genThreeBox.append(pokemon.GenThreePokemon("Mew", pokemon.Type("Psychic"), 100, 
 genThreeBox.append(pokemon.GenThreePokemon("Machamp", pokemon.Type("Fighting"), 90, 130, 80, 65, 85, 55))
 genThreeBox.append(pokemon.GenThreePokemon("Snorlax", pokemon.Type("Normal"), 160, 110, 65, 65, 110, 30))
 
-
 movepool.append(pokemon.Move("Body Slam", "Normal", 85, 100))
 movepool.append(pokemon.Move("Psychic", "Psychic", 90, 100))
 movepool.append(pokemon.Move("Close Combat", "Fighting", 120, 100))
 
-# UTILITY FUNCTIONS
+# UTILITY FUNCTIONS - DEPRECATED
 
 def get_hp(pkmn:pokemon.GenericPokemon, level = 100) -> int:
     return int(((pkmn.hp * 2 * level) / 100) + level + 10)
@@ -39,13 +38,13 @@ def get_damage_g1(move:pokemon.Move, attacker:pokemon.GenOnePokemon, defender:po
     if move.type == attacker.type.type_one or move.type == attacker.type.type_two:
         stab = 1.5
     if move.type in ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost"]:
-        base_damage = (((((2*attacker_level*crit_mult)/5) + 2) * move.power * (get_other_stat(attacker.attack) / get_other_stat(defender.defense))) / 50) + 2
+        base_damage = (((((2*attacker_level*crit_mult)/5) + 2) * move.power * (attacker.get_real_attack() / defender.get_real_defense())) / 50) + 2
     else:
-        base_damage = (((((2*attacker_level*crit_mult)/5) + 2) * move.power * (get_other_stat(attacker.special) / get_other_stat(defender.special))) / 50) + 2
+        base_damage = (((((2*attacker_level*crit_mult)/5) + 2) * move.power * (attacker.get_real_special() / defender.get_real_defense())) / 50) + 2
     if defender.type.type_two == None:
         return int(base_damage*crit_mult*stab*get_gen_one_type_effectiveness(move.type, defender.type.type_one))
     else:
-        return int(base_damage*crit_mult*stab*get_gen_one_type_effectiveness(move.type, defender.type.type_one)*get_gen_one_type_effectiveness(move.type, defender.type.type_two_))
+        return int(base_damage*crit_mult*stab*get_gen_one_type_effectiveness(move.type, defender.type.type_one)*get_gen_one_type_effectiveness(move.type, defender.type.type_two))
 
 def get_gen_one_type_effectiveness(attacker:str, defender:str) -> float:
     type_chart = {
@@ -80,13 +79,13 @@ def get_damage_g3(move:pokemon.Move, attacker:pokemon.GenThreePokemon, defender:
     if move.type == attacker.type.type_one or move.type == attacker.type.type_two:
         stab = 1.5
     if move.type in ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel"]:
-        base_damage = (((((2*attacker_level*crit_mult)/5) + 2) * move.power * (get_other_stat(attacker.attack) / get_other_stat(defender.defense))) / 50) + 2
+        base_damage = (((((2*attacker_level*crit_mult)/5) + 2) * move.power * (attacker.get_real_attack() / defender.get_real_defense())) / 50) + 2
     else:
-        base_damage = (((((2*attacker_level*crit_mult)/5) + 2) * move.power * (get_other_stat(attacker.special_attack) / get_other_stat(defender.special_defense))) / 50) + 2
+        base_damage = (((((2*attacker_level*crit_mult)/5) + 2) * move.power * (attacker.get_real_special_attack() / attacker.get_real_special_defense())) / 50) + 2
     if defender.type.type_two == None:
         return int(base_damage*crit_mult*stab*get_gen_three_type_effectiveness(move.type, defender.type.type_one))
     else:
-        return int(base_damage*crit_mult*stab*get_gen_three_type_effectiveness(move.type, defender.type.type_one)*get_gen_three_type_effectiveness(move.type, defender.type.type_two_))
+        return int(base_damage*crit_mult*stab*get_gen_three_type_effectiveness(move.type, defender.type.type_one)*get_gen_three_type_effectiveness(move.type, defender.type.type_two))
 
 def get_gen_three_type_effectiveness(attacker:str, defender:str) -> float:
     type_chart = {
@@ -147,11 +146,11 @@ def main():
             move_choice = int(input("Enter the move index: "))
 
         move_used = movepool[move_choice]
-        atk = genOneBox[attacker]
-        dfd = genOneBox[defender]
+        atk:pokemon.GenOnePokemon = genOneBox[attacker]
+        dfd:pokemon.GenOnePokemon = genOneBox[defender]
 
         base_damage = get_damage_g1(move_used, atk, dfd)
-        defender_hp = get_hp(dfd)
+        defender_hp = dfd.get_real_hp()
 
     else:
         print("Welcome to the gen 3 damage simulator! Please choose your attacking Pokémon from the following!")
@@ -179,11 +178,11 @@ def main():
             move_choice = int(input("Enter the move index: "))
 
         move_used = movepool[move_choice]
-        atk = genThreeBox[attacker]
-        dfd = genThreeBox[defender]
+        atk:pokemon.GenThreePokemon = genThreeBox[attacker]
+        dfd:pokemon.GenThreePokemon = genThreeBox[defender]
 
         base_damage = get_damage_g3(move_used, atk, dfd)
-        defender_hp = get_hp(dfd)
+        defender_hp = dfd.get_real_hp()
 
     min_damage = int(base_damage * 0.85)
     max_damage = int(base_damage)
