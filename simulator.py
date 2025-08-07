@@ -1,5 +1,4 @@
 import pokemon
-import random
 
 # POKEMON AND MOVE ROSTER - HARDCODED
 
