@@ -1,7 +1,7 @@
 import pokemon
 import random
 
-# POKEMON AND MOVE SELECTION - HARDCODED
+# POKEMON AND MOVE ROSTER - HARDCODED
 
 genOneBox = []
 genThreeBox = []
