@@ -15,3 +15,7 @@ The current form is more of a proof-of-concept, although the structure of the cl
 This is more or less just a basic object-oriented design example, including inheritance and class functions. It also has some protected class fields, but those aren't doing much. It's moreso just to show I know what they are.
 
 This could have been done in Java or C++, but I'm more familiar with Python so I chose that. 
+
+# Usage:
+
+It's really simple! Just download both files, have them in the same directory, and run `simulator.py` using Python! I used Python 3.12!
