@@ -6,10 +6,16 @@ This project implements damage calculations from generations one and three using
 
 This implementation focuses on: 
 - Implementing the different generations of pokemon using basic inheritance for shared attributes
-- Where applicable, leveraging writing functions that either work with the base class (ad-hoc polymorphism isn't really a thing in Python, sadly)
+- Having functionality stored in the class (real stat functions) where appropriate
 - Using custom data types (Move, Type) to make designing everything smoother and easier to follow
-- Being (relatively) easy to expand with new generations or functionality; it should be pretty easy to allow for more knobs and dials on the user's end for things like level and EVs/IVs
+- Being (relatively) easy to expand with new generations and/or functionality; it should be pretty easy to allow for more knobs and dials on the user's end for things like level and EVs/IVs
 
 The current form is more of a proof-of-concept, although the structure of the classes would allow for expansion of the move/pokemon roster (maybe using JSON, which shouldn't be hard)
 
-This is more or less just a basic object-oriented design example
+This is more or less just a basic object-oriented design example, including inheritance and class functions. It also has some protected class fields, but those aren't doing much. It's moreso just to show I know what they are.
+
+This could have been done in Java or C++, but I'm more familiar with Python so I chose that. 
+
+# Usage:
+
+It's really simple! Just download both files, have them in the same directory, and run `simulator.py` using Python! I used Python 3.12!
