@@ -18,7 +18,7 @@ As of right now, the simulator does not take into account moves with secondary e
 
 # Stylistic / Syntax information
 
-I used Python for this project because I am familiar with it, and trust myself to write something of decent scale with it. However, there are some language design features that I had to work around when using this, as opposed to something like C++. 
+I used Python for this project because I am familiar with it, and trust myself to write something of decent scale with it. However, there are some language design features that I had to work around when using this, some of which I would not have run into with something like C++. 
 
 I made the choice to use a lot of type hints (`type: str`, for example). Python's dynamic typing can be a strength, but for writing readable code, especially for something like this where not everyone will inherently understand what datatype a Pokemon type would be, type hints can be a big help. These also help me maintain consistency and use my code editor more efficiently. 
 
