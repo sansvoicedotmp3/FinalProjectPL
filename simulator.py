@@ -62,6 +62,13 @@ def get_gen_one_type_effectiveness(attacker:str, defender:str) -> float:
         "Ghost": [["Ghost"],["Normal", "Psychic"]],
         "Dragon": [["Dragon"],[]],
         "Normal": [[],["Rock", "Ghost"]]}
+    
+    if (attacker == "Electric" and defender == "Ground") \
+       or (attacker == "Fighting" and defender == "Ghost") \
+       or (attacker == "Normal" and defender == "Ghost") \
+       or (attacker == "Ground" and defender == "Flying") \
+       or (attacker == "Ghost" and defender in ["Normal", "Psychic"]):
+        return 0
     if defender in type_chart[attacker][0]:
         return 2
     elif defender in type_chart[attacker][1]:
@@ -105,6 +112,15 @@ def get_gen_three_type_effectiveness(attacker:str, defender:str) -> float:
         "Dragon": [["Dragon"], ["Steel"]],
         "Dark": [["Psychic", "Ghost"], ["Fighting", "Dark", "Steel"]],
         "Steel": [["Ice", "Rock"], ["Fire", "Water", "Electric", "Steel"]]}
+    
+    if (attacker == "Normal" and defender == "Ghost") \
+       or (attacker == "Fighting" and defender == "Ghost") \
+       or (attacker == "Poison" and defender == "Steel") \
+       or (attacker == "Ground" and defender == "Flying") \
+       or (attacker == "Electric" and defender == "Ground") \
+       or (attacker == "Psychic" and defender == "Dark") \
+       or (attacker == "Ghost" and defender == "Normal"):
+        return 0
     if defender in type_chart[attacker][0]:
         return 2
     elif defender in type_chart[attacker][1]:
