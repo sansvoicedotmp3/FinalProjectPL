@@ -12,6 +12,10 @@ This implementation focuses on:
 
 The current form is more of a proof-of-concept, although the structure of the classes would allow for expansion of the move/pokemon roster (maybe using JSON, which shouldn't be hard)
 
+# Limitations
+
+As of right now, the simulator does not take into account moves with secondary effects, because every move having a separate script for any number of modifiers would be outside the scope of this project. Stat modifiers are also not taken into account for the same reasons EVs/IVs and the like are assumed to be 0.
+
 # Stylistic / Syntax information
 
 I used Python for this project because I am familiar with it, and trust myself to write something of decent scale with it. However, there are some language design features that I had to work around when using this, as opposed to something like C++. 
