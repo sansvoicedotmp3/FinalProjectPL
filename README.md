@@ -16,6 +16,8 @@ The current form is more of a proof-of-concept, although the structure of the cl
 
 As of right now, the simulator does not take into account moves with secondary effects, because every move having a separate script for any number of modifiers would be outside the scope of this project. Stat modifiers are also not taken into account for the same reasons EVs/IVs and the like are assumed to be 0.
 
+User customization of the moves and pokemon is limited to editing the simulator file itself. However, some basic input could be added at the start to add to the rosters, although I deemed this functionality unecessary for the sake of this project.
+
 # Stylistic / Syntax information
 
 I used Python for this project because I am familiar with it, and trust myself to write something of decent scale with it. However, there are some language design features that I had to work around when using this, some of which I would not have run into with something like C++. 
